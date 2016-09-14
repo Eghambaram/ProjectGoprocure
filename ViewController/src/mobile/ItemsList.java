@@ -787,6 +787,7 @@ import java.lang.String;
                           Item j = new Item(poNo, vendorName, vendorSiteCode, productCategory, productTitle, unitPrice,imageURL,"/images/uncheck.png","Contracted",uom,String.valueOf(randomInt),diverseSupplier,showDiverSeImage,diverseImageURL,pageNo,"","","","","","","");
                           //ItemsList.s_jobs.add(j); 
                           ItemsList.items_list.add(j); 
+                          size=ItemsList.items_list.size();
                       }
                       
                       
@@ -1115,7 +1116,7 @@ import java.lang.String;
                            ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),"More than 500 results found");
                        }
                        else{
-                           ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),size+" results found");
+                           ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),ItemsList.items_list.size()+" results found");
                        }
                        
                            ValueExpression ve71 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.displayPrev}", String.class);

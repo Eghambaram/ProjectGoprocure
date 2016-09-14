@@ -1734,7 +1734,7 @@ public class RequesitionRest {
                            }
                            if(pref.getString("ATTRIBUTE_NAME").equalsIgnoreCase("HOME_PAGE")) {
                                
-                               ValueExpression ve12 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.selectedSortBy}", String.class);
+                               ValueExpression ve12 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.landing_screen}", String.class);
                                ve12.setValue(AdfmfJavaUtilities.getAdfELContext(),pref.getString("ATTRIBUTE_VALUE"));
                                
                            }

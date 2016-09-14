@@ -835,8 +835,8 @@ public class Rest {
         ValueExpression ve6 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.aliasOracleItemcategories}", String.class);
         String oracleId = (String)ve6.getValue(AdfmfJavaUtilities.getAdfELContext());
         
-        System.out.println("++++itemAliasIndixId++"+itemAliasIndixId+"++++searchValue+++"+searchValue+"oracle ID "+ oracleId);
-        if(!itemAliasIndixId.equals("")  && !searchValue.equals(""))
+        System.out.println("++++itemAliasIndixId++"+itemAliasIndixId+"++++searchValue+++"+searchValue+"oracle ID "+ oracleId+"Alias indix length"+itemAliasIndixId.length());
+        if(!oracleId.equals("") && !itemAliasIndixId.equals("")  && !searchValue.equals(""))
         {
         doSearch();
         }
