@@ -836,12 +836,12 @@ public class Rest {
         String oracleId = (String)ve6.getValue(AdfmfJavaUtilities.getAdfELContext());
         
         System.out.println("++++itemAliasIndixId++"+itemAliasIndixId+"++++searchValue+++"+searchValue+"oracle ID "+ oracleId+"Alias indix length"+itemAliasIndixId.length());
-        if(!oracleId.equals("") && !itemAliasIndixId.equals("")  && !searchValue.equals(""))
+        if(!oracleId.equals("") && !itemAliasIndixId.equals("") && !oracleId.equalsIgnoreCase("Please Select"))
         {
         doSearch();
         }
        
-        else {
+        else {  
             AdfmfContainerUtilities.invokeContainerJavaScriptFunction(AdfmfJavaUtilities.getFeatureId(),
                                                                                                   "SearchWithItemCategories",
                                                                                                   new Object[] { });
@@ -5863,7 +5863,7 @@ public class Rest {
         String oracleId = (String)ve6.getValue(AdfmfJavaUtilities.getAdfELContext());
         
         System.out.println("++++itemAliasIndixId++"+itemAliasIndixId+"++++searchValue+++"+searchValue+"oracle ID "+ oracleId);
-                if(!itemAliasIndixId.equals("")  && !searchValue.equals(""))
+        if(!oracleId.equals("") && !itemAliasIndixId.equals("")  && !oracleId.equalsIgnoreCase("Please Select"))
         {
         doSearch();
         }
@@ -6054,8 +6054,33 @@ public class Rest {
        aliasText=c.getName();
         ValueExpression ve6 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.aliasOracleItemcategories}", String.class);
         ve6.setValue(AdfmfJavaUtilities.getAdfELContext(),c.getOracleCategotySeg());
+           String sample= c.getIndixId();
+           String sample1 ="&categoryId="+sample;
+           System.out.println("*******"+ sample1);
+           String aliasIndixValues = "";
+         
+         if(!sample1.equals("")) {
+             
+             if(sample1.contains("[")) {
+                 String spec1 = c.getIndixId().substring(0,c.getIndixId().length()-1);
+                 String value1= spec1.replaceAll("\\[\"", "&categorryId=");
+                 aliasIndixValues = value1.replaceAll("\",\"", "&categorryId=");
+                 //System.out.println("<<Hello>>"+aliasIndixValues);
+             }
+             else if(sample1.contains("null")) {
+                 aliasIndixValues = sample1;
+                 //System.out.println("<<null>>"+aliasIndixValues);
+             }
+             else {
+                 String spec1 = c.getIndixId();
+                 aliasIndixValues ="&categoryId="+spec1;
+                // System.out.println("<<Hello Dude>>"+aliasIndixValues);
+             }
+         }
+         
+       
         ValueExpression ve7 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.aliasIndixItemcategories}", String.class);
-        ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),c.getIndixId());
+        ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),aliasIndixValues);
         AdfmfJavaUtilities.flushDataChangeEvent();
        }
        else {

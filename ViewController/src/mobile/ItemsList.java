@@ -650,6 +650,8 @@ import java.lang.String;
                        ValueExpression ve31 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.aliasIndixItemcategories}", String.class);
                        aliasCategoriesId = (String)ve31.getValue(AdfmfJavaUtilities.getAdfELContext());
                        
+                       ValueExpression ve32 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.aliasOracleItemcategories}", String.class);
+                       String oracleId = (String)ve32.getValue(AdfmfJavaUtilities.getAdfELContext());
                            
                        ValueExpression ve41 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.searchType}", String.class);
                        ve41.setValue(AdfmfJavaUtilities.getAdfELContext(), "S");
@@ -697,6 +699,8 @@ import java.lang.String;
                                "        \"P_SEARCH_ATTRIBS\": \n" + 
                                "            {\n" + 
                                "             \"SEARCH_TEXT\": \""+search+"\",\n" + 
+                               "             \"CATEGORY\": \""+oracleId+"\",\n" +  
+                               "             \"USER_ID\": \""+userId+"\",\n" +              
                                "             \"ITEM_TYPE\": \""+itemType+"\",\n" +
                                "             \"ORG_ID\": \""+orgId+"\"\n" +           
                                "            }\n" + 
@@ -817,11 +821,11 @@ import java.lang.String;
                            String url="";
                            if(!aliasCategoriesId.equals(""))
                            {
-                               url = "https://api.indix.com/v2/universal/products"+"?"+"countryCode=US&q="+URLEncoder.encode(search)+"&categoryId="+URLEncoder.encode(aliasCategoriesId)+"&availability=IN_STOCK&lastRecordedIn=30&pageSize=20&app_id=9867e55c&app_key=8d79be1be9b9d8ce50af3a978b4d5ccc";
+                               url = "https://api.indix.com/v2/universal/products"+"?"+"countryCode=US&q="+URLEncoder.encode(search)+aliasCategoriesId+"&availability=IN_STOCK&lastRecordedIn=30&pageSize=20&app_id=9867e55c&app_key=8d79be1be9b9d8ce50af3a978b4d5ccc";
                            }
-                  else {
+                  /*else {
                                url = "https://api.indix.com/v2/universal/products"+"?"+"countryCode=US&q="+URLEncoder.encode(search)+"&availability=IN_STOCK&lastRecordedIn=30&pageSize=20&app_id=9867e55c&app_key=8d79be1be9b9d8ce50af3a978b4d5ccc";
-                           }
+                           }*/
                                   
                                                   
                                                   URL obj = new URL(url);
@@ -1346,13 +1350,17 @@ import java.lang.String;
                               
                                 ValueExpression ve31 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.aliasIndixItemcategories}", String.class);
                                 aliasCategoriesId = (String)ve31.getValue(AdfmfJavaUtilities.getAdfELContext());
-                               
-                              url = "https://api.indix.com/v2/universal/products?countryCode=US&brandId="+brand_ref+veCategoryRef+"&availability=IN_STOCK&lastRecordedIn=30&pageNumber="+pageNo+"&pageSize=20&app_id=9867e55c&app_key=8d79be1be9b9d8ce50af3a978b4d5ccc"; 
-                            }
-                            else{
+                                url = "https://api.indix.com/v2/universal/products?countryCode=US&brandId="+brand_ref+veCategoryRef+"&availability=IN_STOCK&lastRecordedIn=30&pageNumber="+pageNo+"&pageSize=20&app_id=9867e55c&app_key=8d79be1be9b9d8ce50af3a978b4d5ccc"; 
+                                }
                                 
-                              url = "https://api.indix.com/v2/universal/products"+"?"+"countryCode=US&q="+URLEncoder.encode(search)+"&categoryId="+URLEncoder.encode(aliasCategoriesId)+"&availability=IN_STOCK&lastRecordedIn=30&pageNumber="+pageNo+"&pageSize=20&app_id=9867e55c&app_key=8d79be1be9b9d8ce50af3a978b4d5ccc";
-                            }
+                             
+                                else{
+                                 url = "https://api.indix.com/v2/universal/products"+"?"+"countryCode=US&q="+URLEncoder.encode(search)+"&"+categoryRef+"availability=IN_STOCK&lastRecordedIn=30&pageNumber="+pageNo+"&pageSize=20&app_id=9867e55c&app_key=8d79be1be9b9d8ce50af3a978b4d5ccc";
+                                }
+                                
+                            
+                              
+                            
                         }
                         if(isFilterSet){
                             
@@ -1871,7 +1879,11 @@ import java.lang.String;
                    ValueExpression ve31 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.searchValue}", String.class);
                    search = (String)ve31.getValue(AdfmfJavaUtilities.getAdfELContext()); 
                    
-                   
+                ValueExpression veid = AdfmfJavaUtilities.getValueExpression("#{applicationScope.user_id}", String.class);
+                String userId = (String)veid.getValue(AdfmfJavaUtilities.getAdfELContext());
+
+                ValueExpression ve32 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.aliasOracleItemcategories}", String.class);
+                String oracleId = (String)ve32.getValue(AdfmfJavaUtilities.getAdfELContext()); 
                    
                        
                    ValueExpression ve41 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.searchType}", String.class);
@@ -1916,7 +1928,9 @@ import java.lang.String;
                            "        \"P_SEARCH_ATTRIBS\": \n" + 
                            "            {\n" + 
                            "             \"SEARCH_TEXT\": \""+search+"\",\n" + 
-                           "             \"ITEM_TYPE\": \""+itemType+"\",\n" + 
+                           "             \"CATEGORY\": \""+oracleId+"\",\n" +  
+                           "             \"USER_ID\": \""+userId+"\",\n" +              
+                           "             \"ITEM_TYPE\": \""+itemType+"\",\n" +
                            "             \"ORG_ID\": \""+orgId+"\"\n" +           
                            "            }\n" + 
                            "      }\n" + 
@@ -2180,7 +2194,7 @@ import java.lang.String;
             String sortBy=(String)ve41.getValue(AdfmfJavaUtilities.getAdfELContext());
             
             
-            String defaultsortBy="relevance";
+            /*String defaultsortBy="relevance";
             
             if(defaultsortBy.equalsIgnoreCase("relevance")) {
                 ComparatorChain chain = new ComparatorChain();  
@@ -2304,7 +2318,7 @@ import java.lang.String;
                 }
                 
             }
-            
+            */
             if(sortBy.equalsIgnoreCase("relevance")) {
                 ComparatorChain chain = new ComparatorChain();  
                 //call the relevance api to get the relevance factors
@@ -2476,7 +2490,10 @@ import java.lang.String;
                 
                 ValueExpression ve7 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.searchCount}", String.class);
              //   ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),pageSize+"/"+size+" results");
-             ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),size+" results");
+             ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),ItemsList.items_list.size()+" results");
+             
+             
+             
 
                
                 
@@ -2541,7 +2558,9 @@ import java.lang.String;
                 
                 ValueExpression ve7 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.searchCount}", String.class);
                // ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),pageSize+"/"+size+" results");
-               ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),+size+" results");
+             //  ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),+size+" results");
+             ve7.setValue(AdfmfJavaUtilities.getAdfELContext(),+ItemsList.items_list.size()+" results");
+                
                
                 AdfmfJavaUtilities.flushDataChangeEvent();
                 
