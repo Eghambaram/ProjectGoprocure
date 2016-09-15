@@ -6108,7 +6108,7 @@ public class Rest {
             ValueExpression ve11 = AdfmfJavaUtilities.getValueExpression("#{pageFlowScope.aliasIndixItemcategories}", String.class);
             ve11.setValue(AdfmfJavaUtilities.getAdfELContext(),"");
         try{
-            System.out.println("--------------ALIASSSS-----");
+            System.out.println("-------------ALIASSSS-----");
             RestServiceAdapter restServiceAdapter = Model.createRestServiceAdapter();
             restServiceAdapter = Model.createRestServiceAdapter();
             // Clear any previously set request properties, if any
