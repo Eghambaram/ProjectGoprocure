@@ -4,7 +4,7 @@
 <amx:panelPage id="pp1" inlineStyle="background-color:#ededed">
 
     <amx:verbatim id="v3">
-        
+hi        
 
   </amx:verbatim>
         <amx:facet name="header">
